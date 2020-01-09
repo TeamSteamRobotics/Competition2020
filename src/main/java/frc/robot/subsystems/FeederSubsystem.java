@@ -9,30 +9,23 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class ClimbSubsystem extends SubsystemBase {
+public class FeederSubsystem extends SubsystemBase {
   /**
-   * Creates a new ClimbSubsygtem.
+   * Creates a new FeederSystem.
    */
-  WPI_TalonSRX rightLifter = new WPI_TalonSRX(0);
-  WPI_TalonSRX leftLifter = new WPI_TalonSRX(1);
-  SpeedControllerGroup lifters = new SpeedControllerGroup(leftLifter, rightLifter);
+  WPI_TalonSRX feederMotor = new WPI_TalonSRX(2);
 
-  public void goUp(){
-    lifters.set(.5); 
-  } 
-
-  public void goDown(){
-    lifters.set(-.5);
+  public void feed(){
+    feederMotor.set(.5);
   }
-
-public void stopClimb(){
-  lifters.set(0);
-}
-
-}
+  public void reverseFeed(){     
+    feederMotor.set(-.5);
+  }
+  public void stopFeeder(){
+    feederMotor.set(0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
