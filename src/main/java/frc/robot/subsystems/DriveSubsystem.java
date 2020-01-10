@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -18,6 +19,8 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
    */
+
+  AHRS gyro = new AHRS();
 
   WPI_TalonSRX left1 = new WPI_TalonSRX(0);
   WPI_VictorSPX right1 = new WPI_VictorSPX(1);
@@ -36,5 +39,9 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     
+  }
+
+  public double getAngle(){
+    return gyro.getAngle();
   }
 }
