@@ -28,10 +28,10 @@ public class ClimbSubsystem extends SubsystemBase {
     lifters.set(-.5);
   }
 
-  public void stopClimb(){
-    lifters.set(0);
-  }
-  
+public void stopClimb(){
+  lifters.set(0);
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
