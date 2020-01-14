@@ -7,32 +7,20 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class IntakeSubsystem extends SubsystemBase {
-  WPI_TalonSRX intakeMotor = new WPI_TalonSRX(3);
-  WPI_TalonSRX intakeMotor2 = new WPI_TalonSRX(1);
-  WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(2);
-  
-  public void intake(){
-   intakeMotor.set(.5);
-   intakeMotor2.set(.5);
-  }
-
-  public void deployIntake(){
-    intakeDeployer.set(.5);
-  }
-
-  public void stopIntake(){
-    intakeMotor.set(0);
-    intakeMotor2.set(0);
+public class BallTrackingSubsystem extends SubsystemBase {
+  /**
+   * Creates a new BallTrackingSubsystem.
+   */
+    DigitalInput topTracker = new DigitalInput(1);
+    DigitalInput bottomTracker = new DigitalInput(2);
+    DigitalInput intakeTracker = new DigitalInput(3);
     
-  }
 
-  public void sameVoltage() {
-    intakeDeployer.set(.3);
+
+  public BallTrackingSubsystem(){
 
   }
 

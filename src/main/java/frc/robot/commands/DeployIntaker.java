@@ -8,18 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class ReverseFeederCommand extends CommandBase {
+public class DeployIntaker extends CommandBase {
   /**
-   * Creates a new ReverseFeederCommand.
+   * Creates a new DeployIntakerCommand.
    */
-  FeederSubsystem reverseFeeder;
-  public ReverseFeederCommand(FeederSubsystem reverseFeeder) {
-    this.reverseFeeder = reverseFeeder;
-    addRequirements(reverseFeeder);
-
+  IntakeSubsystem intake;
+  public DeployIntaker(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intake);
+    this.intake = intake;
   }
 
   // Called when the command is initially scheduled.
@@ -30,13 +29,13 @@ public class ReverseFeederCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    reverseFeeder.reverseFeed();
-
+    intake.deployIntake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intake.stopIntake();
   }
 
   // Returns true when the command should end.

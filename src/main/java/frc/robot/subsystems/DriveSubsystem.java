@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -22,10 +23,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   AHRS gyro = new AHRS();
 
-  WPI_TalonSRX left1 = new WPI_TalonSRX(0);
-  WPI_VictorSPX right1 = new WPI_VictorSPX(1);
-  WPI_TalonSRX left2 = new WPI_TalonSRX(2);
-  WPI_VictorSPX right2 = new WPI_VictorSPX(3);
+  WPI_TalonFX left1 = new WPI_TalonFX(0);
+  WPI_TalonFX right1 = new WPI_TalonFX(1);
+  WPI_TalonFX left2 = new WPI_TalonFX(2);
+  WPI_TalonFX right2 = new WPI_TalonFX(3);
 
   SpeedControllerGroup left = new SpeedControllerGroup(left1, left2);
   SpeedControllerGroup right = new SpeedControllerGroup(right1, right2);

@@ -10,23 +10,22 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.FeederCommand;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.ReverseFeederCommand;
-import frc.robot.commands.ShooterCommand;
-import frc.robot.commands.ClimbDownCommand;
-import frc.robot.commands.ClimbUpCommand;
+import frc.robot.commands.Feeder;
+import frc.robot.commands.Succ;
+import frc.robot.commands.ReverseFeeder;
+import frc.robot.commands.Shooter;
+import frc.robot.commands.ClimbDown;
+import frc.robot.commands.ClimbUp;
+import frc.robot.commands.DeployIntaker;
 import frc.robot.subsystems.ClimbSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -45,19 +44,18 @@ public class RobotContainer {
     private final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+    private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
 
-
-    private final Joystick joystick = new Joystick(0);
-    private final JoystickButton climbUpButton = new JoystickButton(joystick, 6);
-    private final JoystickButton climbDownButton = new JoystickButton(joystick, 4);
 
     Joystick stick = new Joystick(0);
     JoystickButton shootButton = new JoystickButton(stick, 1);
     JoystickButton intakeButton = new JoystickButton(stick, 2);
     JoystickButton feedButton = new JoystickButton(stick, 5);
     JoystickButton reverseFeedButton = new JoystickButton(stick, 3);
-
+    JoystickButton climbUpButton = new JoystickButton(stick, 6);
+    JoystickButton climbDownButton = new JoystickButton(stick, 4);
+    JoystickButton deployIntakerButton = new JoystickButton(stick, 7);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -74,13 +72,13 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    shootButton.whileHeld(new ShooterCommand(m_shooterSubsystem));
-    intakeButton.whileActiveOnce(new IntakeCommand(m_intakeSubsystem));
-    feedButton.whileHeld(new FeederCommand(m_feederSubsystem));
-    reverseFeedButton.whileHeld(new ReverseFeederCommand(m_feederSubsystem));
-    
-      climbUpButton.whileHeld(new ClimbUpCommand(m_climbSubsystem));
-      climbDownButton.whileHeld(new ClimbDownCommand(m_climbSubsystem));
+    shootButton.whileHeld(new Shooter(m_shooterSubsystem));
+    intakeButton.whileActiveOnce(new Succ(m_intakeSubsystem));
+    feedButton.whileHeld(new Feeder(m_feederSubsystem));
+    reverseFeedButton.whileHeld(new ReverseFeeder(m_feederSubsystem));
+    climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
+    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
+    deployIntakerButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
       
   }
 

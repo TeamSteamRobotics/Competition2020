@@ -16,15 +16,19 @@ public class FeederSubsystem extends SubsystemBase {
    * Creates a new FeederSystem.
    */
   WPI_TalonSRX feederMotor = new WPI_TalonSRX(2);
+  WPI_TalonSRX feederMotor2 = new WPI_TalonSRX(3);
 
   public void feed(){
     feederMotor.set(.5);
+    feederMotor2.set(.5);
   }
   public void reverseFeed(){     
     feederMotor.set(-.5);
+    feederMotor2.set(-.5);
   }
   public void stopFeeder(){
     feederMotor.set(0);
+    feederMotor2.set(0);
   }
   @Override
   public void periodic() {

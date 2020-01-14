@@ -8,17 +8,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.FeederSubsystem;
 
-public class DriveCommand extends CommandBase {
+public class Feeder extends CommandBase {
   /**
-   * Creates a new DriveCommand.
+   * Creates a new FeederCommand.
+ *
    */
-  
-  public DriveCommand() {
+  FeederSubsystem feeder;
+  public Feeder(FeederSubsystem feeder) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.feeder = feeder;
+    addRequirements(feeder);
   }
 
-  // Called when the command is initially scheduled.
+  
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -26,11 +31,13 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    feeder.feed();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    feeder.stopFeeder();
   }
 
   // Returns true when the command should end.
