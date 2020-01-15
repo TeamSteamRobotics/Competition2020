@@ -10,13 +10,14 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.FeederConstants;
 
 public class FeederSubsystem extends SubsystemBase {
   /**
    * Creates a new FeederSystem.
    */
-  WPI_TalonSRX feederMotor = new WPI_TalonSRX(2);
-  WPI_TalonSRX feederMotor2 = new WPI_TalonSRX(3);
+  WPI_TalonSRX feederMotor = new WPI_TalonSRX(FeederConstants.feederID1);
+  WPI_TalonSRX feederMotor2 = new WPI_TalonSRX(FeederConstants.feederID2);
 
   public void feed(){
     feederMotor.set(.5);

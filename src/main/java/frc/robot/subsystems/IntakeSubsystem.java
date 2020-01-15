@@ -10,15 +10,16 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-  WPI_TalonSRX intakeMotor = new WPI_TalonSRX(3);
-  WPI_TalonSRX intakeMotor2 = new WPI_TalonSRX(1);
-  WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(2);
+  WPI_TalonSRX lowerIntakeMotor = new WPI_TalonSRX(IntakeConstants.lowerIntakeID);
+  WPI_TalonSRX upperIntakeMotor = new WPI_TalonSRX(IntakeConstants.upperIntakeID);
+  WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(IntakeConstants.deployMotorID);
   
   public void intake(){
-   intakeMotor.set(.5);
-   intakeMotor2.set(.5);
+   lowerIntakeMotor.set(.5);
+   upperIntakeMotor.set(.5);
   }
 
   public void deployIntake(){
@@ -26,8 +27,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void stopIntake(){
-    intakeMotor.set(0);
-    intakeMotor2.set(0);
+    lowerIntakeMotor.set(0);
+    upperIntakeMotor.set(0);
     
   }
 

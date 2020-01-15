@@ -27,6 +27,9 @@ public class VisionSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /**
+   * returns the scaled x position of the target in the interval [-1,1].
+   */
   public double getTargetX(){
     return (targetX.getDouble(0) - 320) / 320;
   }

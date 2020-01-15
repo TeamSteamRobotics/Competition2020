@@ -17,6 +17,7 @@ import frc.robot.commands.Shooter;
 import frc.robot.commands.ClimbDown;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.DeployIntaker;
+import frc.robot.commands.Drive;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.commands.ExampleCommand;
@@ -40,22 +41,22 @@ public class RobotContainer {
 
   
 	//private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-    private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-    private final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
-    private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-    private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
-    private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
 
 
-    Joystick stick = new Joystick(0);
-    JoystickButton shootButton = new JoystickButton(stick, 1);
-    JoystickButton intakeButton = new JoystickButton(stick, 2);
-    JoystickButton feedButton = new JoystickButton(stick, 5);
-    JoystickButton reverseFeedButton = new JoystickButton(stick, 3);
-    JoystickButton climbUpButton = new JoystickButton(stick, 6);
-    JoystickButton climbDownButton = new JoystickButton(stick, 4);
-    JoystickButton deployIntakerButton = new JoystickButton(stick, 7);
+  Joystick stick = new Joystick(0);
+  JoystickButton shootButton = new JoystickButton(stick, 1);
+  JoystickButton intakeButton = new JoystickButton(stick, 2);
+  JoystickButton feedButton = new JoystickButton(stick, 5);
+  JoystickButton reverseFeedButton = new JoystickButton(stick, 3);
+  JoystickButton climbUpButton = new JoystickButton(stick, 6);
+  JoystickButton climbDownButton = new JoystickButton(stick, 4);
+  JoystickButton deployIntakerButton = new JoystickButton(stick, 7);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -63,6 +64,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, stick::getY, stick::getX));
   }
 
   /**
