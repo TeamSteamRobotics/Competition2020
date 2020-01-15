@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
-import static frc.robot.Constants.drivePID;
+import static frc.robot.Constants.DriveConstants.EncDrivePID;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -25,7 +25,7 @@ public class DriveDistance extends PIDCommand {
   public DriveDistance(DriveSubsystem drivetrain, double distance) {
     super(
         // The controller that the command will use
-        new PIDController(drivePID.kP, drivePID.kI, drivePID.kD),
+        new PIDController(EncDrivePID.kP, EncDrivePID.kI, EncDrivePID.kD),
         // This should return the measurement
         drivetrain::getDistance,
         // This should return the setpoint (can also be a constant)

@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import frc.robot.util.PIDGains;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean constants. This class should not be used for any other
@@ -20,15 +18,29 @@ import frc.robot.util.PIDGains;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final PIDGains gyroTurnPID = new PIDGains(.5 / 90, 0, 0);
-    public static final PIDGains visionTurnPID = new PIDGains(.5, 0, 0);
-    public static final PIDGains drivePID = new PIDGains(0, 0, 0);
-
     public static final class DriveConstants {
         public static final int leftID1 = 0;
         public static final int leftID2 = 1;
         public static final int rightID1 = 2;
         public static final int rightID2 = 3;
+
+        public static final class GyroTurnPID {
+            public static final double kP = .5 / 90;
+            public static final double kI = 0;
+            public static final double kD = 0;
+        }
+
+        public static final class VisionTurnPID {
+            public static final double kP = .5;
+            public static final double kI = 0;
+            public static final double kD = 0;
+        }
+
+        public static final class EncDrivePID {
+            public static final double kP = 0;
+            public static final double kI = 0;
+            public static final double kD = 0;
+        }
     }
 
     public static final class ShooterConstants {

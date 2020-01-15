@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveSubsystem;
-import static frc.robot.Constants.gyroTurnPID;
+import static frc.robot.Constants.DriveConstants.GyroTurnPID;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -22,7 +22,7 @@ public class GyroTurn extends PIDCommand {
   public GyroTurn(DriveSubsystem drive, double target) {
     super(
         // The controller that the command will use
-        new PIDController(gyroTurnPID.kP, gyroTurnPID.kI, gyroTurnPID.kD),
+        new PIDController(GyroTurnPID.kP, GyroTurnPID.kI, GyroTurnPID.kD),
         // This should return the measurement
         drive::getAngle,
         // This should return the setpoint (can also be a constant)
