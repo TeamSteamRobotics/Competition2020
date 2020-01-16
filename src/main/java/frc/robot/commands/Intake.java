@@ -7,22 +7,37 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.BallTrackingSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class Intake extends ParallelCommandGroup {
+public class Intake extends SequentialCommandGroup {
   /**
-   * Creates a new Intake.
+   * Creates a new IntakeTrueFalse.
    */
-
-   
-  public Intake() {
+  public Intake(IntakeSubsystem succer, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
     // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());super();
+    // super(new FooCommand(), new BarCommand());
+    
+    super(
+      new ConditionalCommand(
+        //move balls to intake if necessary
+        (new MoveToIntake(hopper)).withInterrupt(tracker::isBallAtBottom), 
+        //do nothing if necessary
+        new WaitCommand(0), 
+        //check for if the hopper is ready
+        tracker::isBallAtTop),
+      //start intake
+      new Succ(succer, hopper, tracker)
+    );
 
     
-        
   }
 }
+

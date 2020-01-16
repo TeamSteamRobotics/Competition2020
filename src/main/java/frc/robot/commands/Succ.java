@@ -8,6 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BallTrackingSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class Succ extends CommandBase {
@@ -15,10 +17,14 @@ public class Succ extends CommandBase {
    * Creates a new IntakeCommand.
    */
   IntakeSubsystem intaker;
-  public Succ(IntakeSubsystem intaker) {
+  HopperSubsystem hopper;
+  BallTrackingSubsystem tracker;
+  public Succ(IntakeSubsystem intaker, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intaker = intaker;
-    addRequirements(intaker);
+    this.hopper = hopper;
+    this.tracker = tracker;
+    addRequirements(intaker, hopper, tracker);
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +35,23 @@ public class Succ extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intaker.intake(); 
+    intaker.intake();
+
+    if(tracker.isBallInIntake()){
+      hopper.feed();
+    }
+    else {
+      hopper.stopFeeder();
+    }
+
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intaker.stopIntake();
+    hopper.stopFeeder();
   }
 
   // Returns true when the command should end.

@@ -21,20 +21,20 @@ public class BallTrackingSubsystem extends SubsystemBase {
     
 
 
-  public BallTrackingSubsystem(){
-
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public boolean isHopperFull() {
+    return isBallAtTop() && isBallAtBottom();  
   }
 
   public boolean isBallAtTop(){
     return topTracker.get();
   }
 
-  public boolean inBallAtBottom(){
+  public boolean isBallAtBottom(){
     return bottomTracker.get();
   }
 
