@@ -30,12 +30,12 @@ public class EpicAutonomous extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveDistance(drive, -5),
-      new VisionTurn(drive, vision.getTargetX()),
+      new VisionTurn(drive, vision),
       (new Shooter(shooter, hopper)).withTimeout(1.5),
       new GyroTurn(drive, 0),
       new ParallelRaceGroup(new Intake(succer, hopper, tracker), new DriveDistance(drive, -5)),
       new DriveDistance(drive, 5),
-      new VisionTurn(drive, vision.getTargetX()),
+      new VisionTurn(drive, vision),
       (new Shooter(shooter, hopper)).withTimeout(2.5)
 
     );

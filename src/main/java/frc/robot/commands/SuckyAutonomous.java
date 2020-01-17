@@ -27,7 +27,7 @@ public class SuckyAutonomous extends SequentialCommandGroup {
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveDistance(drive, -5),
-      new VisionTurn(drive, vision.getTargetX()),
+      new VisionTurn(drive, vision),
       (new Shooter(shoot, hopper)).withTimeout(1.5)
       
     );
