@@ -28,18 +28,27 @@ public final class Constants {
             public static final double kP = .5 / 90;
             public static final double kI = 0;
             public static final double kD = 0;
+
+            public static final double posTolerance = 1;
+            public static final double velTolerance = 2;
         }
 
         public static final class VisionTurnPID {
             public static final double kP = .5;
             public static final double kI = 0;
             public static final double kD = 0;
+
+            public static final double posTolerance = .01;
+            public static final double velTolerance = .01;
         }
 
         public static final class EncDrivePID {
             public static final double kP = 0;
             public static final double kI = 0;
             public static final double kD = 0;
+
+            public static final double posTolerance = 0;
+            public static final double velTolerance = 0;
         }
     }
 

@@ -10,6 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
+
 import static frc.robot.Constants.DriveConstants.VisionTurnPID;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,14 +21,14 @@ public class VisionTurn extends PIDCommand {
   /**
    * Creates a new GyroTurn2.
    */
-  public VisionTurn(DriveSubsystem drive, double target) {
+  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
         new PIDController(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD),
         // This should return the measurement
-        drive::getAngle,
+        vision::getTargetX,
         // This should return the setpoint (can also be a constant)
-        target,
+        0,
         // This uses the output
         output -> {
           drive.drive(0, output);
@@ -34,11 +36,12 @@ public class VisionTurn extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);
+    getController().setTolerance(VisionTurnPID.posTolerance, VisionTurnPID.velTolerance);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }
