@@ -7,37 +7,34 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.BallTrackingSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class Intake extends SequentialCommandGroup {
+public class EpicAutonomous extends SequentialCommandGroup {
   /**
-   * Creates a new IntakeTrueFalse.
+   * Creates a new Autonomous.
    */
-  public Intake(IntakeSubsystem succer, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
+  public EpicAutonomous(DriveSubsystem drive, VisionSubsystem vision, IntakeSubsystem succer, HopperSubsystem hopper, BallTrackingSubsystem tracker, ShooterSubsystem shooter) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    
     super(
-      new ConditionalCommand(
-        //move balls to intake if necessary
-        (new MoveToIntake(hopper)).withInterrupt(tracker::isBallAtBottom), 
-        //do nothing if necessary
-        new WaitCommand(0), 
-        //check for if the hopper is ready
-        tracker::isBallAtTop),
-      //start intake
-      new Succ(succer, hopper, tracker)
+      new DriveDistance(drive, -5),
+      new VisionTurn(drive, vision),
+      (new Shooter(shooter, hopper)).withTimeout(1.5),
+      new GyroTurn(drive, 0),
+      new ParallelRaceGroup(new Intake(succer, hopper, tracker), new DriveDistance(drive, -5)),
+      new DriveDistance(drive, 5),
+      new VisionTurn(drive, vision),
+      (new Shooter(shooter, hopper)).withTimeout(2.5)
+
     );
-
-    
-  }
-}
-
+  }}

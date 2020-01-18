@@ -34,6 +34,7 @@ public class GyroTurn extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);
+    getController().setTolerance(GyroTurnPID.posTolerance, GyroTurnPID.velTolerance);
   }
 
   // Returns true when the command should end.

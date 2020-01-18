@@ -10,20 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HopperSubsystem;
 
-public class Feeder extends CommandBase {
+public class MoveToShooter extends CommandBase {
   /**
-   * Creates a new FeederCommand.
- *
-   */
-  HopperSubsystem hopper;
-  public Feeder(HopperSubsystem hopper) {
-    // Use addRequirements() here to declare subsystem dependencies.
+   * Creates a new MoveToShooter.
+   */HopperSubsystem hopper;
+  public MoveToShooter(HopperSubsystem hopper) {
     this.hopper = hopper;
     addRequirements(hopper);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }

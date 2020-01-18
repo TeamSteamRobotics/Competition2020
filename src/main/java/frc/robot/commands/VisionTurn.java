@@ -26,8 +26,9 @@ public class VisionTurn extends PIDCommand {
         // The controller that the command will use
         new PIDController(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD),
         // This should return the measurement
-        drive::getAngle,
-        vision,
+        vision::getTargetX,
+        // This should return the setpoint (can also be a constant)
+        0,
         // This uses the output
         output -> {
           drive.drive(0, output);
@@ -35,11 +36,12 @@ public class VisionTurn extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);
+    getController().setTolerance(VisionTurnPID.posTolerance, VisionTurnPID.velTolerance);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

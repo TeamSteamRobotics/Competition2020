@@ -8,22 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.HopperSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class Feeder extends CommandBase {
+public class SpinIntake extends CommandBase {
   /**
-   * Creates a new FeederCommand.
- *
-   */
-  HopperSubsystem hopper;
-  public Feeder(HopperSubsystem hopper) {
+   * Creates a new SpinIntake.
+   */IntakeSubsystem intake;
+  public SpinIntake(IntakeSubsystem intake) {
+    this.intake = intake;
+    addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.hopper = hopper;
-    addRequirements(hopper);
   }
 
-  
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -31,13 +28,13 @@ public class Feeder extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.feed();
+    intake.intake();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.stopFeeder();
+    intake.stopIntake();
   }
 
   // Returns true when the command should end.

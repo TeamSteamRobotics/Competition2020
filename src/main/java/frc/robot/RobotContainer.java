@@ -11,19 +11,27 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.Feeder;
+import frc.robot.commands.Intake;
+import frc.robot.commands.ManualShoot;
+import frc.robot.commands.MoveToIntake;
+import frc.robot.commands.MoveToShooter;
 import frc.robot.commands.Succ;
 import frc.robot.commands.ReverseFeeder;
 import frc.robot.commands.Shooter;
+import frc.robot.commands.SpinIntake;
 import frc.robot.commands.ClimbDown;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.DeployIntaker;
 import frc.robot.commands.Drive;
+import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -39,21 +47,25 @@ public class RobotContainer {
   
 	//private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final FeederSubsystem m_feederSubsystem = new FeederSubsystem();
+  private final HopperSubsystem m_feederSubsystem = new HopperSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
 
 
 
   Joystick stick = new Joystick(0);
   JoystickButton shootButton = new JoystickButton(stick, 1);
   JoystickButton intakeButton = new JoystickButton(stick, 2);
-  JoystickButton feedButton = new JoystickButton(stick, 5);
-  JoystickButton reverseFeedButton = new JoystickButton(stick, 3);
-  JoystickButton climbUpButton = new JoystickButton(stick, 6);
-  JoystickButton climbDownButton = new JoystickButton(stick, 4);
-  JoystickButton deployIntakerButton = new JoystickButton(stick, 7);
+  JoystickButton climbDownButton = new JoystickButton(stick, 3);
+  JoystickButton climbUpButton = new JoystickButton(stick, 5);
+  //manual overrides
+  JoystickButton moveToIntakeButton = new JoystickButton(stick, 7);
+  JoystickButton moveToShooterButton = new JoystickButton(stick, 8);
+  JoystickButton spinIntakeButton = new JoystickButton(stick, 9);
+  JoystickButton spinShooterButton = new JoystickButton(stick, 10);
+
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -71,14 +83,22 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    shootButton.whileHeld(new Shooter(m_shooterSubsystem));
-    intakeButton.whileActiveOnce(new Succ(m_intakeSubsystem));
-    feedButton.whileHeld(new Feeder(m_feederSubsystem));
-    reverseFeedButton.whileHeld(new ReverseFeeder(m_feederSubsystem));
+    shootButton.whileHeld(new Shooter(m_shooterSubsystem, m_feederSubsystem));
+    intakeButton.whileHeld(new ConditionalCommand(
+      new WaitCommand(0), 
+      new Intake(m_intakeSubsystem, m_feederSubsystem, m_ballTrackingSubsystem),
+      m_ballTrackingSubsystem::isHopperFull
+    ));
+    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));  
     climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
-    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));
-    deployIntakerButton.whileHeld(new DeployIntaker(m_intakeSubsystem));
-      
+    //manual overrides
+    moveToIntakeButton.whileHeld(new MoveToIntake(m_feederSubsystem));
+    moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
+    spinIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
+    spinShooterButton.whileHeld(new ManualShoot(m_shooterSubsystem));
+    
+
+   
   }
 
 

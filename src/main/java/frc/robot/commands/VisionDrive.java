@@ -19,7 +19,7 @@ public class VisionDrive extends PIDCommand {
   /**
    * Creates a new VisionDrive.
    */
-  public VisionDrive(VisionSubsystem vision, DriveSubsystem drive) {
+  public VisionDrive(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
         new PIDController(VisionDrivePID.kP, VisionDrivePID.kI, VisionDrivePID.kD),
@@ -34,11 +34,12 @@ public class VisionDrive extends PIDCommand {
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+    getController().setTolerance(VisionDrivePID.posTolerance, VisionDrivePID.velTolerance);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

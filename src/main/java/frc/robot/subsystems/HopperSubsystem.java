@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.FeederConstants;
 
-public class FeederSubsystem extends SubsystemBase {
+public class HopperSubsystem extends SubsystemBase {
   /**
    * Creates a new FeederSystem.
    */

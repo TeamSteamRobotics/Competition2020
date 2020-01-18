@@ -8,22 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.HopperSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class Feeder extends CommandBase {
+public class ManualShoot extends CommandBase {
   /**
-   * Creates a new FeederCommand.
- *
+   * Creates a new ManualShoot.
    */
-  HopperSubsystem hopper;
-  public Feeder(HopperSubsystem hopper) {
+  ShooterSubsystem shooter;
+  public ManualShoot(ShooterSubsystem shooter) {
+    this.shooter = shooter;
+    addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.hopper = hopper;
-    addRequirements(hopper);
   }
 
-  
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -31,13 +29,13 @@ public class Feeder extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.feed();
+    shooter.shoot();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.stopFeeder();
+    shooter.stopShooter();
   }
 
   // Returns true when the command should end.
