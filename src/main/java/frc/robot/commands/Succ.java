@@ -38,10 +38,10 @@ public class Succ extends CommandBase {
     intaker.intake();
 
     if(tracker.isBallInIntake()){
-      hopper.feed();
+      hopper.moveToShooter();
     }
     else {
-      hopper.stopFeeder();
+      hopper.stop();
     }
 
   }
@@ -51,7 +51,7 @@ public class Succ extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intaker.stopIntake();
-    hopper.stopFeeder();
+    hopper.stop();
   }
 
   // Returns true when the command should end.

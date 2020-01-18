@@ -20,7 +20,7 @@ public class SuckyAutonomous extends SequentialCommandGroup {
   /**
    * Creates a new SuckyAutonomous.
    */
-  public SuckyAutonomous(DriveSubsystem drive, ShooterSubsystem shoot, HopperSubsystem hopper, VisionSubsystem vision){
+  public SuckyAutonomous(DriveSubsystem drive, ShooterSubsystem shooter, HopperSubsystem hopper, VisionSubsystem vision){
 
   
     // Add your commands in the super() call, e.g.
@@ -28,7 +28,7 @@ public class SuckyAutonomous extends SequentialCommandGroup {
     super(
       new DriveDistance(drive, -5),
       new VisionTurn(drive, vision),
-      (new Shooter(shoot, hopper)).withTimeout(1.5)
+      (new Shoot(shooter, hopper)).withTimeout(1.5)
       
     );
   }

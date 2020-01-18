@@ -10,18 +10,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.Feeder;
 import frc.robot.commands.Intake;
 import frc.robot.commands.ManualShoot;
 import frc.robot.commands.MoveToIntake;
 import frc.robot.commands.MoveToShooter;
-import frc.robot.commands.Succ;
-import frc.robot.commands.ReverseFeeder;
-import frc.robot.commands.Shooter;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.SpinIntake;
 import frc.robot.commands.ClimbDown;
 import frc.robot.commands.ClimbUp;
-import frc.robot.commands.DeployIntaker;
 import frc.robot.commands.Drive;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.ClimbSubsystem;
@@ -83,7 +79,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    shootButton.whileHeld(new Shooter(m_shooterSubsystem, m_feederSubsystem));
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, m_feederSubsystem));
     intakeButton.whileHeld(new ConditionalCommand(
       new WaitCommand(0), 
       new Intake(m_intakeSubsystem, m_feederSubsystem, m_ballTrackingSubsystem),

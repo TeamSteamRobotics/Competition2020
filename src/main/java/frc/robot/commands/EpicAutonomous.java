@@ -23,18 +23,18 @@ public class EpicAutonomous extends SequentialCommandGroup {
   /**
    * Creates a new Autonomous.
    */
-  public EpicAutonomous(DriveSubsystem drive, VisionSubsystem vision, IntakeSubsystem succer, HopperSubsystem hopper, BallTrackingSubsystem tracker, ShooterSubsystem shooter) {
+  public EpicAutonomous(DriveSubsystem drive, VisionSubsystem vision, IntakeSubsystem theBigSucc, HopperSubsystem hopper, BallTrackingSubsystem tracker, ShooterSubsystem shooter) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
       new DriveDistance(drive, -5),
       new VisionTurn(drive, vision),
-      (new Shooter(shooter, hopper)).withTimeout(1.5),
+      (new Shoot(shooter, hopper)).withTimeout(1.5),
       new GyroTurn(drive, 0),
-      new ParallelRaceGroup(new Intake(succer, hopper, tracker), new DriveDistance(drive, -5)),
+      new ParallelRaceGroup(new Intake(theBigSucc, hopper, tracker), new DriveDistance(drive, -5)),
       new DriveDistance(drive, 5),
       new VisionTurn(drive, vision),
-      (new Shooter(shooter, hopper)).withTimeout(2.5)
+      (new Shoot(shooter, hopper)).withTimeout(2.5)
 
     );
   }}

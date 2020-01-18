@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IntakeConstants;
 
@@ -16,10 +17,11 @@ public class IntakeSubsystem extends SubsystemBase {
   WPI_TalonSRX lowerIntakeMotor = new WPI_TalonSRX(IntakeConstants.lowerIntakeID);
   WPI_TalonSRX upperIntakeMotor = new WPI_TalonSRX(IntakeConstants.upperIntakeID);
   WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(IntakeConstants.deployMotorID);
-  
+
+  SpeedControllerGroup intakeMotors = new SpeedControllerGroup(lowerIntakeMotor, upperIntakeMotor);
+
   public void intake(){
-   lowerIntakeMotor.set(.5);
-   upperIntakeMotor.set(.5);
+   intakeMotors.set(.5);
   }
 
   public void deployIntake(){
@@ -27,14 +29,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void stopIntake(){
-    lowerIntakeMotor.set(0);
-    upperIntakeMotor.set(0);
-    
+    intakeMotors.set(0);
   }
 
-  public void sameVoltage() {
+  public void holdDeployment() {
     intakeDeployer.set(.3);
-
   }
 
   @Override
