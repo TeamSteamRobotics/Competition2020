@@ -19,9 +19,11 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTableEntry targetX = table.getEntry("targetX");
 
   public VisionSubsystem() {
-
+  
   }
-
+  public double getTargetDistance(){
+    return 21;
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

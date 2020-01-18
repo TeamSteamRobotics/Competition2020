@@ -11,30 +11,29 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
-
-import static frc.robot.Constants.DriveConstants.VisionTurnPID;
-
+import static frc.robot.Constants.DriveConstants.VisionDrivePID;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class VisionTurn extends PIDCommand {
+public class VisionDrive extends PIDCommand {
   /**
-   * Creates a new GyroTurn2.
+   * Creates a new VisionDrive.
    */
-  public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
+  public VisionDrive(VisionSubsystem vision, DriveSubsystem drive) {
     super(
         // The controller that the command will use
-        new PIDController(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD),
-        // This should return the measurement
-        drive::getAngle,
-        vision,
+        new PIDController(VisionDrivePID.kP, VisionDrivePID.kI, VisionDrivePID.kD),
+        // This should return the measurment
+        vision::getTargetDistance,
+        // This should return the setpoint (can also be a constant)
+        VisionDrivePID.shootDistance,
         // This uses the output
         output -> {
-          drive.drive(0, output);
+          drive.drive(output, 0);
+          // Use the output here
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    getController().enableContinuousInput(-180, 180);
   }
 
   // Returns true when the command should end.
