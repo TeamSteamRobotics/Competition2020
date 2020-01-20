@@ -19,6 +19,8 @@ public class VisionDrive extends PIDCommand {
   /**
    * Creates a new VisionDrive.
    */
+  static double targetAngle;
+
   public VisionDrive(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
@@ -29,9 +31,11 @@ public class VisionDrive extends PIDCommand {
         VisionDrivePID.shootDistance,
         // This uses the output
         output -> {
-          drive.drive(output, 0);
+          double turnValue = (targetAngle - drive.getAngle()) * VisionDrivePID.turnkP;
+          drive.drive(output, turnValue);
           // Use the output here
         });
+    targetAngle = drive.getAngle();
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(VisionDrivePID.posTolerance, VisionDrivePID.velTolerance);

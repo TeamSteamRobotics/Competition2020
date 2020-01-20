@@ -49,6 +49,8 @@ public final class Constants {
 
             public static final double posTolerance = 0;
             public static final double velTolerance = 0;
+
+            public static final double turnkP = .05;
         }
         public static final class VisionDrivePID{
             public static final double kP = 0;
@@ -58,6 +60,8 @@ public final class Constants {
 
             public static final double posTolerance = .1;
             public static final double velTolerance = .083333333333333333333333;
+
+            public static final double turnkP = .05;
         }
     }
 

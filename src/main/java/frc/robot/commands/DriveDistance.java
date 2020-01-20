@@ -20,7 +20,7 @@ public class DriveDistance extends PIDCommand {
   /**
    * Creates a new DriveDistance.
    */
-  double startAngle;
+  static double targetAngle;
 
   public DriveDistance(DriveSubsystem drivetrain, double distance) {
     super(
@@ -32,7 +32,8 @@ public class DriveDistance extends PIDCommand {
         drivetrain.getDistance() + distance,
         // This uses the output
         output -> {
-          drivetrain.drive(output, 0);
+          double turnValue = (targetAngle - drivetrain.getAngle()) * EncDrivePID.turnkP;
+          drivetrain.drive(output, turnValue);
         });
     
     //drivetrain.resetEncoders();
