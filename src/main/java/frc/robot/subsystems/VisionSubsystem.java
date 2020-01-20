@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,13 +17,18 @@ public class VisionSubsystem extends SubsystemBase {
    * Creates a new VisionSubsystem.
    */
   NetworkTableInstance table = NetworkTableInstance.getDefault();
-  NetworkTableEntry targetX = table.getEntry("targetX");
+  NetworkTable visionTable = table.getTable("chameleon-vision").getSubTable("Microsoft LifeCam HD-3000");
+  NetworkTableEntry poseEntry = visionTable.getEntry("pose");
+  NetworkTableEntry yawEntry = visionTable.getEntry("yaw");
 
   public VisionSubsystem() {
   
   }
   public double getTargetDistance(){
-    return 21;
+    double[] defaultPose = {0, 0, 0};
+    double[] pose = poseEntry.getDoubleArray(defaultPose);
+
+    return Math.hypot(pose[0], pose[1]);
   }
   @Override
   public void periodic() {
@@ -33,6 +39,6 @@ public class VisionSubsystem extends SubsystemBase {
    * returns the scaled x position of the target in the interval [-1,1].
    */
   public double getTargetX(){
-    return (targetX.getDouble(0) - 320) / 320;
+    return yawEntry.getDouble(0);
   }
 }
