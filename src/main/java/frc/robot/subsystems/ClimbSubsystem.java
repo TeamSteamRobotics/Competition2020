@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.ClimbConstants;;
+import static frc.robot.Constants.ClimbConstants;
 
 public class ClimbSubsystem extends SubsystemBase {
   /**
