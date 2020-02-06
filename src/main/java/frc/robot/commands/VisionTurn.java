@@ -21,22 +21,36 @@ public class VisionTurn extends PIDCommand {
   /**
    * Creates a new GyroTurn2.
    */
+  private boolean runExecute = true;
+
   public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
-        new PIDController(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD),
+        new PIDController(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD, .04),
         // This should return the measurement
-        vision::getTargetX,
+        () -> -vision.getTargetX(),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          drive.drive(0, output);
+          drive.autoDrive(0, output);
         });
+
+    addRequirements(drive, vision);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
-    getController().enableContinuousInput(-180, 180);
     getController().setTolerance(VisionTurnPID.posTolerance, VisionTurnPID.velTolerance);
+  }
+
+
+  @Override
+  public void execute() {
+    // TODO Auto-generated method stub
+    if(runExecute){
+      super.execute();
+    }
+
+    runExecute = !runExecute;
   }
 
   // Returns true when the command should end.

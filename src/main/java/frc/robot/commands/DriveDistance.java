@@ -21,6 +21,8 @@ public class DriveDistance extends PIDCommand {
    * Creates a new DriveDistance.
    */
   static double targetAngle;
+  double distance;
+  DriveSubsystem drive;
 
   public DriveDistance(DriveSubsystem drivetrain, double distance) {
     super(
@@ -29,16 +31,30 @@ public class DriveDistance extends PIDCommand {
         // This should return the measurement
         drivetrain::getDistance,
         // This should return the setpoint (can also be a constant)
-        drivetrain.getDistance() + distance,
+        0,
         // This uses the output
         output -> {
           double turnValue = (targetAngle - drivetrain.getAngle()) * EncDrivePID.turnkP;
-          drivetrain.drive(output, turnValue);
+          drivetrain.autoDrive(output, turnValue);
+          
         });
     
+    addRequirements(drivetrain);
+    drive = drivetrain;
+    this.distance = distance;
     //drivetrain.resetEncoders();
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+  }
+
+  @Override
+  public void initialize() {
+    // TODO Auto-generated method stub
+    super.initialize();
+    double position = drive.getDistance();
+    m_setpoint = () -> (position + distance);
+    //targetPosition = drive.getDistance() + distance;
+    targetAngle = drive.getAngle();
   }
 
   // Returns true when the command should end.

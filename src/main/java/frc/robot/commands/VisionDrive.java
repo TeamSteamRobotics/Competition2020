@@ -20,25 +20,53 @@ public class VisionDrive extends PIDCommand {
    * Creates a new VisionDrive.
    */
   static double targetAngle;
+  DriveSubsystem drive;
+  boolean runExecute = true;
 
   public VisionDrive(DriveSubsystem drive, VisionSubsystem vision) {
+    this(drive, vision, VisionDrivePID.shootDistance);
+  }
+
+  public VisionDrive(DriveSubsystem drive, VisionSubsystem vision, double distance) {
     super(
         // The controller that the command will use
-        new PIDController(VisionDrivePID.kP, VisionDrivePID.kI, VisionDrivePID.kD),
+        new PIDController(VisionDrivePID.kP, VisionDrivePID.kI, VisionDrivePID.kD, .04),
         // This should return the measurment
         vision::getTargetDistance,
         // This should return the setpoint (can also be a constant)
-        VisionDrivePID.shootDistance,
+        distance,
         // This uses the output
         output -> {
           double turnValue = (targetAngle - drive.getAngle()) * VisionDrivePID.turnkP;
-          drive.drive(output, turnValue);
+          drive.autoDrive(-output, turnValue);
           // Use the output here
         });
-    targetAngle = drive.getAngle();
+
+    addRequirements(drive, vision);
+    
+    this.drive = drive;
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(VisionDrivePID.posTolerance, VisionDrivePID.velTolerance);
+  }
+
+  @Override
+  public void initialize() {
+    // TODO Auto-generated method stub
+    super.initialize();
+    targetAngle = drive.getAngle();
+  }
+
+  @Override
+  public void execute() {
+    // TODO Auto-generated method stub
+    if(runExecute){
+      super.execute();
+    }else{
+      drive.keepGoing();
+    }
+
+    runExecute = !runExecute;
   }
 
   // Returns true when the command should end.
