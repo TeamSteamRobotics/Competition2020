@@ -25,27 +25,27 @@ public final class Constants {
         public static final int rightID2 = 3;
 
         public static final class GyroTurnPID {
-            public static final double kP = .5 / 90;
+            public static final double kP = 1.5 / 69.0;
             public static final double kI = 0;
-            public static final double kD = 0;
+            public static final double kD = 1.0 / 300.0;
 
             public static final double posTolerance = 1;
             public static final double velTolerance = 2;
         }
 
         public static final class VisionTurnPID {
-            public static final double kP = .5;
+            public static final double kP = .75;
             public static final double kI = 0;
-            public static final double kD = 0;
+            public static final double kD = .05;
 
             public static final double posTolerance = .01;
             public static final double velTolerance = .01;
         }
 
         public static final class EncDrivePID {
-            public static final double kP = 0;
+            public static final double kP = 2 / 10000.0;
             public static final double kI = 0;
-            public static final double kD = 0;
+            public static final double kD = 1.2 / 40000.0 ;
 
             public static final double posTolerance = 0;
             public static final double velTolerance = 0;
@@ -53,9 +53,9 @@ public final class Constants {
             public static final double turnkP = .05;
         }
         public static final class VisionDrivePID{
-            public static final double kP = 0;
+            public static final double kP = 1.5;
             public static final double kI = 0;
-            public static final double kD = 0;
+            public static final double kD = .22;
             public static final double shootDistance = 0;
 
             public static final double posTolerance = .1;

@@ -29,8 +29,9 @@ public class GyroTurn extends PIDCommand {
         target,
         // This uses the output
         output -> {
-          drive.drive(0, output);
+          drive.autoDrive(0, output);
         });
+    addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().enableContinuousInput(-180, 180);

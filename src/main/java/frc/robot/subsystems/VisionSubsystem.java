@@ -20,25 +20,31 @@ public class VisionSubsystem extends SubsystemBase {
   NetworkTable visionTable = table.getTable("chameleon-vision").getSubTable("Microsoft LifeCam HD-3000");
   NetworkTableEntry poseEntry = visionTable.getEntry("pose");
   NetworkTableEntry yawEntry = visionTable.getEntry("yaw");
+  int counter = 0;
 
-  public VisionSubsystem() {
-  
-  }
   public double getTargetDistance(){
     double[] defaultPose = {0, 0, 0};
     double[] pose = poseEntry.getDoubleArray(defaultPose);
-
     return Math.hypot(pose[0], pose[1]);
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //System.out.println(getTargetX());
+    counter = (counter + 1) % 10;
+
+    double[] defaultPose = {0, 0, 0};
+    if(counter == 2){
+      double[] pose = poseEntry.getDoubleArray(defaultPose);
+      //System.out.println(pose[0]+", "+pose[1]+", "+pose[2]);
+    }
+    //System.out.println(table.getTable("chameleon-vision").getSubTables());
   }
 
   /**
    * returns the scaled x position of the target in the interval [-1,1].
    */
   public double getTargetX(){
-    return yawEntry.getDouble(0);
+    return yawEntry.getDouble(0) / 30.0;
   }
 }
