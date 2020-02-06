@@ -7,9 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.Intake;
 import frc.robot.commands.ManualShoot;
 import frc.robot.commands.MoveToIntake;
@@ -27,6 +29,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -42,12 +45,12 @@ public class RobotContainer {
 
   
 	//private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final HopperSubsystem m_feederSubsystem = new HopperSubsystem();
-  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
-  private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
+  //private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  //private final HopperSubsystem m_feederSubsystem = new HopperSubsystem();
+  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  //private final ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
+  //private final BallTrackingSubsystem m_ballTrackingSubsystem = new BallTrackingSubsystem();
 
 
 
@@ -67,9 +70,12 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    NetworkTableEntry shooterSpeed = Shuffleboard.getTab("Tab").add("Shooter Speed", 0).getEntry();
     // Configure the button bindings
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, stick::getY, stick::getX));
+    //m_feederSubsystem.setDefaultCommand(new RunCommand(() -> m_feederSubsystem.move(stick.getThrottle()), m_feederSubsystem));
+    //m_shooterSubsystem.setDefaultCommand(new RunCommand(() -> m_shooterSubsystem.move(shooterSpeed.getDouble(0)), m_shooterSubsystem));
   }
 
   /**
@@ -79,20 +85,21 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, m_feederSubsystem));
-    intakeButton.whileHeld(new ConditionalCommand(
+    //shootButton.whileHeld(new Shoot(m_shooterSubsystem, m_feederSubsystem));
+    /*intakeButton.whileHeld(new ConditionalCommand(
       new WaitCommand(0), 
       new Intake(m_intakeSubsystem, m_feederSubsystem, m_ballTrackingSubsystem),
       m_ballTrackingSubsystem::isHopperFull
-    ));
-    climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));  
-    climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
+    ));*/
+    //climbDownButton.whileHeld(new ClimbDown(m_climbSubsystem));  
+    //climbUpButton.whileHeld(new ClimbUp(m_climbSubsystem));
     //manual overrides
-    moveToIntakeButton.whileHeld(new MoveToIntake(m_feederSubsystem));
-    moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
-    spinIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
-    spinShooterButton.whileHeld(new ManualShoot(m_shooterSubsystem));
-    
+    //moveToIntakeButton.whileHeld(new MoveToIntake(m_feederSubsystem));
+    //moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
+    //spinIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
+    //spinShooterButton.whileHeld(new ManualShoot(m_shooterSubsystem));
+    //shootButton.whileHeld(new RunCommand(m_feederSubsystem::moveToShooter, m_feederSubsystem));
+    //intakeButton.whileHeld(new RunCommand(m_shooterSubsystem::shoot, m_shooterSubsystem));
 
    
   }

@@ -23,13 +23,17 @@ public class HopperSubsystem extends SubsystemBase {
   SpeedControllerGroup hopper = new SpeedControllerGroup(hopperMotor, hopperMotor2);
 
   public void moveToShooter(){
-    hopper.set(.5);
+    hopper.set(.9);
   }
   public void moveToIntake(){     
-    hopper.set(-.5);
+    hopper.set(-.9);
   }
   public void stop(){
     hopper.set(0);
+  }
+
+  public void move(double speed){
+    hopper.set(speed * Math.abs(speed));
   }
   @Override
   public void periodic() {

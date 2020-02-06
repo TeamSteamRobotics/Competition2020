@@ -23,12 +23,17 @@ public class ShooterSubsystem extends SubsystemBase {
 
   }
   public void shoot(){
-    rightShooter.set(.5);
-    leftShooter.set(-.5);
+    rightShooter.set(-.75);
+    leftShooter.set(.75);
   }
   public void stopShooter(){
     rightShooter.set(0);
     leftShooter.set(0);
+  }
+
+  public void move(double speed){
+    rightShooter.set(speed);
+    leftShooter.set(-speed);
   }
   
 
