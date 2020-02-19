@@ -21,9 +21,10 @@ public class Succ extends CommandBase {
   BallTrackingSubsystem tracker;
   public Succ(IntakeSubsystem intaker, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.intaker = intaker;
+    //this.intaker = intaker;
     this.hopper = hopper;
     this.tracker = tracker;
+    this.intaker = intaker;
     addRequirements(intaker, hopper, tracker);
   }
 
@@ -57,6 +58,6 @@ public class Succ extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return tracker.isBallAtTop();
   }
 }

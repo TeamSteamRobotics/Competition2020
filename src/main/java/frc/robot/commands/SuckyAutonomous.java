@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -20,7 +21,7 @@ public class SuckyAutonomous extends SequentialCommandGroup {
   /**
    * Creates a new SuckyAutonomous.
    */
-  public SuckyAutonomous(DriveSubsystem drive, ShooterSubsystem shooter, HopperSubsystem hopper, VisionSubsystem vision){
+  public SuckyAutonomous(DriveSubsystem drive, ShooterSubsystem shooter, HopperSubsystem hopper, VisionSubsystem vision, BallTrackingSubsystem tracker) {
 
   
     // Add your commands in the super() call, e.g.
@@ -28,7 +29,7 @@ public class SuckyAutonomous extends SequentialCommandGroup {
     super(
       new DriveDistance(drive, -5),
       new VisionTurn(drive, vision),
-      (new Shoot(shooter, hopper)).withTimeout(1.5)
+      (new Shoot(shooter, hopper, tracker)).withTimeout(1.5)
       
     );
   }

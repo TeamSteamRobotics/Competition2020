@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
@@ -27,15 +28,19 @@ public class EpicAutonomous extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     super(
+      new InstantCommand(drive::resetEncoders, drive),
+      new InstantCommand(() -> drive.configureRamping(true)),
       new InstantCommand(drive::resetGyro, drive),
-      new DriveDistance(drive, -16384),
-      new GyroTurn(drive, -25),
-     // (new Shoot(shooter, hopper)).withTimeout(1.5),
-      new GyroTurn(drive, 0),
-      /*new ParallelRaceGroup(new Intake(theBigSucc, hopper, tracker), */new DriveDistance(drive, -12288)/*)*/,
-      new DriveDistance(drive, 12288),
-      new GyroTurn(drive, -25)//,
-     // (new Shoot(shooter, hopper)).withTimeout(2.5)
-
+      (new DriveDistance(drive, -10)).withTimeout(3),
+      new GyroTurn(drive, -25).withTimeout(2),
+      new WaitCommand(2),//(new Shoot(shooter, hopper)).withTimeout(1.5),
+      new GyroTurn(drive, 0).withTimeout(2),
+      /*new ParallelRaceGroup(new Intake(theBigSucc, hopper, tracker), */(new DriveDistance(drive, -11)).withTimeout(3.5)/*)*/,
+      (new DriveDistance(drive, 11)).withTimeout(3.5),
+      new GyroTurn(drive, -25).withTimeout(2),
+      new WaitCommand(2),
+      new GyroTurn(drive, 0).withTimeout(2),
+      //(new Shoot(shooter, hopper)).withTimeout(2.5),
+      new InstantCommand(() -> drive.configureRamping(false))
     );
   }}

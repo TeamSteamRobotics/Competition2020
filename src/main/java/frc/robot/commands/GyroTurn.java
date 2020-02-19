@@ -29,7 +29,8 @@ public class GyroTurn extends PIDCommand {
         target,
         // This uses the output
         output -> {
-          drive.autoDrive(0, output);
+          drive.drive(0, output, false);
+          //System.out.println(drive.getAngle());
         });
     addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,9 +39,15 @@ public class GyroTurn extends PIDCommand {
     getController().setTolerance(GyroTurnPID.posTolerance, GyroTurnPID.velTolerance);
   }
 
+  @Override
+  public void execute() {
+    super.execute();
+    System.out.println("pos: "+getController().getPositionError()+", vel: "+getController().getVelocityError());
+  }
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

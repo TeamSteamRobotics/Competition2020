@@ -16,24 +16,27 @@ import static frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
   WPI_TalonSRX lowerIntakeMotor = new WPI_TalonSRX(IntakeConstants.lowerIntakeID);
   WPI_TalonSRX upperIntakeMotor = new WPI_TalonSRX(IntakeConstants.upperIntakeID);
-  WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(IntakeConstants.deployMotorID);
+  //WPI_TalonSRX intakeDeployer = new WPI_TalonSRX(IntakeConstants.deployMotorID);
 
   SpeedControllerGroup intakeMotors = new SpeedControllerGroup(lowerIntakeMotor, upperIntakeMotor);
 
   public void intake(){
-   intakeMotors.set(.5);
+   intakeMotors.set(.4);
   }
 
   public void deployIntake(){
-    intakeDeployer.set(.5);
+    //intakeDeployer.set(.5);
   }
 
   public void stopIntake(){
     intakeMotors.set(0);
   }
+  public void setSpeed(double speed){
+    intakeMotors.set(speed);
+  }
 
   public void holdDeployment() {
-    intakeDeployer.set(.3);
+    //intakeDeployer.set(.3);
   }
 
   @Override

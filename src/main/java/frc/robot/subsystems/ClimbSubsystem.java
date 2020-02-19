@@ -21,6 +21,11 @@ public class ClimbSubsystem extends SubsystemBase {
   WPI_TalonSRX leftLifter = new WPI_TalonSRX(ClimbConstants.leftClimberID);
   SpeedControllerGroup lifters = new SpeedControllerGroup(leftLifter, rightLifter);
 
+  public void setSpeed(double speed) {
+    lifters.set(speed);
+    
+  }
+
   public void goUp(){
     lifters.set(.5); 
   } 
@@ -29,9 +34,9 @@ public class ClimbSubsystem extends SubsystemBase {
     lifters.set(-.5);
   }
 
-public void stopClimb(){
+  public void stopClimb(){
   lifters.set(0);
-}
+  }
 
   @Override
   public void periodic() {

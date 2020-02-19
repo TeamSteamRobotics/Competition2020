@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.BootlegPID;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
@@ -21,19 +22,20 @@ public class VisionTurn extends PIDCommand {
   /**
    * Creates a new GyroTurn2.
    */
-  private boolean runExecute = true;
+  private int runExecute = 0;
 
   public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
-        new PIDController(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD, .04),
+        new BootlegPID(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD, .02),
         // This should return the measurement
-        () -> -vision.getTargetX(),
+        () -> -vision.getTargetAngle(),//.getTargetX(),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          drive.autoDrive(0, output);
+          drive.drive(0, output, false);
+          //System.out.println(getController());
         });
 
     addRequirements(drive, vision);
@@ -46,11 +48,17 @@ public class VisionTurn extends PIDCommand {
   @Override
   public void execute() {
     // TODO Auto-generated method stub
-    if(runExecute){
+    if(true){//runExecute >= 3){
+      System.out.println(getController().getVelocityError());
+      //if (Math.abs(getController().getPositionError()) < 0.2) {
+      //  getController().setI(1);
+      //} else {
+      //  getController().setI(0);
+      //}
       super.execute();
+      runExecute = 0;
     }
-
-    runExecute = !runExecute;
+    runExecute += 1;
   }
 
   // Returns true when the command should end.

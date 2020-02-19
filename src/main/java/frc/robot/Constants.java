@@ -24,33 +24,35 @@ public final class Constants {
         public static final int rightID1 = 2;
         public static final int rightID2 = 3;
 
-        public static final class GyroTurnPID {
-            public static final double kP = 1.5 / 69.0;
-            public static final double kI = 0;
-            public static final double kD = 1.0 / 300.0;
+        public static final double feetPerTick = 7.168135E-5;
 
-            public static final double posTolerance = 1;
+        public static final class GyroTurnPID {
+            public static final double kP = 1.6 / 69.0;
+            public static final double kI = 1.0 / 75;
+            public static final double kD = 1.9 / 690;
+
+            public static final double posTolerance = 2;
             public static final double velTolerance = 2;
         }
 
         public static final class VisionTurnPID {
-            public static final double kP = .75;
-            public static final double kI = 0;
-            public static final double kD = .05;
+            public static final double kP = .55 / 69.0;//0.65;
+            public static final double kI = .5 / 20.0;//0.7;
+            public static final double kD = .3 / 690.0;//0.04;
 
             public static final double posTolerance = .01;
             public static final double velTolerance = .01;
         }
 
         public static final class EncDrivePID {
-            public static final double kP = 2 / 10000.0;
+            public static final double kP = .6;
             public static final double kI = 0;
-            public static final double kD = 1.2 / 40000.0 ;
+            public static final double kD = 0.0725;
 
-            public static final double posTolerance = 0;
-            public static final double velTolerance = 0;
+            public static final double posTolerance = 2.5 / 12;
+            public static final double velTolerance = 2.0 / 12;
 
-            public static final double turnkP = .05;
+            public static final double turnkP = .04;
         }
         public static final class VisionDrivePID{
             public static final double kP = 1.5;
@@ -66,8 +68,14 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int shooterID1 = 4;
-        public static final int shooterID2 = 5;
+        public static final int masterID = 4;
+        public static final int followerID = 5;
+        
+        public static final double clicksPerRev = 4096;
+
+        public static final double tolerance = 50;
+
+        public static final double trenchShotSpeed = -36000;
     }
 
     public static final class FeederConstants {
