@@ -28,7 +28,7 @@ public class Intake extends SequentialCommandGroup {
     super(
       new ConditionalCommand(
         //move balls to intake if necessary
-        (new MoveToIntake(hopper)).withInterrupt(tracker::isBallAtBottom), 
+        (new MoveToIntake(hopper)).withInterrupt(tracker::isBallInIntake), 
         //do nothing if necessary
         new WaitCommand(0), 
         //check for if the hopper is ready

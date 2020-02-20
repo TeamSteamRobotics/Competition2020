@@ -8,9 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import static edu.wpi.first.wpilibj2.command.CommandGroupBase.sequence;
 
 public class Succ extends CommandBase {
   /**
@@ -19,6 +22,9 @@ public class Succ extends CommandBase {
   IntakeSubsystem intaker;
   HopperSubsystem hopper;
   BallTrackingSubsystem tracker;
+
+  int loopsSinceClear = 0;
+  int spacingLoops = 10;
   public Succ(IntakeSubsystem intaker, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
     // Use addRequirements() here to declare subsystem dependencies.
     //this.intaker = intaker;
@@ -39,6 +45,12 @@ public class Succ extends CommandBase {
     intaker.intake();
 
     if(tracker.isBallInIntake()){
+      loopsSinceClear = 0;
+    }else{
+      loopsSinceClear++;
+    }
+
+    if(loopsSinceClear < spacingLoops && !tracker.isBallAtTop()){
       hopper.moveToShooter();
     }
     else {
@@ -51,13 +63,17 @@ public class Succ extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intaker.stopIntake();
+    sequence(
+      new InstantCommand(() -> intaker.setSpeed(-.3)), 
+      new WaitCommand(.02), 
+      new InstantCommand(intaker::stopIntake)).schedule();
+    //intaker.stopIntake();
     hopper.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return tracker.isBallAtTop();
+    return tracker.isHopperFull();
   }
 }

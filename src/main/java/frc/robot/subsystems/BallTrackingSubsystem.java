@@ -27,7 +27,7 @@ public class BallTrackingSubsystem extends SubsystemBase {
   }
 
   public boolean isHopperFull() {
-    return isBallAtTop() && isBallAtBottom();  
+    return isBallAtTop() && isBallInIntake();  
   }
 
   public boolean isBallAtTop(){

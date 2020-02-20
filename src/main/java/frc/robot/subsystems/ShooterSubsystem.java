@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -32,6 +33,8 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     shooterFollower.setInverted(InvertType.OpposeMaster);
     shooterFollower.set(ControlMode.Follower, ShooterConstants.masterID);
+    shooterMaster.setNeutralMode(NeutralMode.Coast);
+    shooterFollower.setNeutralMode(NeutralMode.Coast);
 
     shooterMaster.setSensorPhase(true);
 
@@ -63,6 +66,7 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    System.out.println(isAtSpeed());
   }
 
   public boolean isAtSpeed(){

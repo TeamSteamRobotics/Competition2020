@@ -73,7 +73,7 @@ public final class Constants {
         
         public static final double clicksPerRev = 4096;
 
-        public static final double tolerance = 50;
+        public static final double tolerance = 300;
 
         public static final double trenchShotSpeed = -36000;
     }
