@@ -10,14 +10,17 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class ManualShoot extends CommandBase {
   /**
    * Creates a new ManualShoot.
    */
   ShooterSubsystem shooter;
-  public ManualShoot(ShooterSubsystem shooter) {
+  //VisionSubsystem vision;
+  public ManualShoot(ShooterSubsystem shooter/*, VisionSubsystem vision*/) {
     this.shooter = shooter;
+    //this.vision = vision;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,7 +33,8 @@ public class ManualShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.movePID(ShooterConstants.trenchShotSpeed);
+
+    shooter.movePID(ShooterConstants.trenchShotSpeed);//shooter.getTargetSpeed(vision.getTargetDistance()));
   }
 
   // Called once the command ends or is interrupted.

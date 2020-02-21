@@ -40,12 +40,24 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterMaster.selectProfileSlot(0, 0);
 
-    shooterMaster.config_kP(0, .05);
-    shooterMaster.config_kI(0, .0001);
-    shooterMaster.config_kD(0, 5);
-    shooterMaster.config_kF(0, .02);
+    shooterMaster.config_kP(0, .03);
+    shooterMaster.config_kI(0, 0);
+    shooterMaster.config_kD(0, 0);
+    shooterMaster.config_kF(0, 0.01760006);
 
     Shuffleboard.getTab("driverInfo").addBoolean("shooter at speed", this::isAtSpeed);
+
+    populateDistanceTable();
+  }
+
+  public void populateDistanceTable(){
+    shooterSpeeds.put(7.5, -36000d);
+    shooterSpeeds.put(5.18, -32500d);
+    shooterSpeeds.put(3.86, -31100d);
+    shooterSpeeds.put(9.08, -39800d);
+    shooterSpeeds.put(8.07, -38000d);
+    shooterSpeeds.put(7.37, -36500d);
+
   }
   public void shoot(){
     shooterMaster.set(-.75);

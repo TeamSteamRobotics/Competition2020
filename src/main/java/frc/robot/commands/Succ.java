@@ -24,7 +24,7 @@ public class Succ extends CommandBase {
   BallTrackingSubsystem tracker;
 
   int loopsSinceClear = 0;
-  int spacingLoops = 10;
+  int spacingLoops = 8;
   public Succ(IntakeSubsystem intaker, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
     // Use addRequirements() here to declare subsystem dependencies.
     //this.intaker = intaker;

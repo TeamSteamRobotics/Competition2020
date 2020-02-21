@@ -100,7 +100,7 @@ public class RobotContainer {
     // Configure the button bindings
     m_driveSubsystem.loadMusic("RickRoll.chrp");
     configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, xboxController::getY, xboxController::getX));
+    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, stick::getY, stick::getX));
     //m_shooterSubsystem.setDefaultCommand(new RunCommand(() -> m_shooterSubsystem.movePID(speed.getDouble(0)), m_shooterSubsystem));
     //m_feederSubsystem.setDefaultCommand(new RunCommand(() -> m_feederSubsystem.move(stick.getY()), m_feederSubsystem));
     //m_intakeSubsystem.setDefaultCommand(new RunCommand(() -> m_intakeSubsystem.setSpeed(-stick.getY()), m_intakeSubsystem));
