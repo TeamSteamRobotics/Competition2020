@@ -27,14 +27,14 @@ public class VisionTurn extends PIDCommand {
   public VisionTurn(DriveSubsystem drive, VisionSubsystem vision) {
     super(
         // The controller that the command will use
-        new BootlegPID(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD, .02),
+        new BootlegPID(VisionTurnPID.kP, VisionTurnPID.kI, VisionTurnPID.kD, .02, drive),
         // This should return the measurement
         () -> -vision.getTargetAngle(),//.getTargetX(),
         // This should return the setpoint (can also be a constant)
         0,
         // This uses the output
         output -> {
-          drive.drive(0, output, false);
+          drive.autoDrive(0, output);
           //System.out.println(getController());
         });
 

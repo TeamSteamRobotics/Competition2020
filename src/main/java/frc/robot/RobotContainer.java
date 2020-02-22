@@ -115,10 +115,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     testShoot.whileHeld(new MoveToShooter(m_feederSubsystem));//.alongWith(new MoveToShooter(m_feederSubsystem)));
-    aimButton.whileHeld(new VisionTurn2(m_driveSubsystem, m_visionSubsystem));//new VisionTurn(m_driveSubsystem, m_visionSubsystem));
+    aimButton.whileHeld(new VisionTurn(m_driveSubsystem, m_visionSubsystem));//new VisionTurn(m_driveSubsystem, m_visionSubsystem));
     //aimButton.whileHeld(new StartEndCommand(() -> m_driveSubsystem.playMusic(), () -> {}, m_driveSubsystem));
     //aimButton.whileHeld(new StartEndCommand(() -> m_driveSubsystem.playTone(880 + 440 * stick.getThrottle()), () -> m_driveSubsystem.stop(), m_driveSubsystem));
-    shootButton.whileHeld(new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem));
+    shootButton.whileHeld(new Shoot(m_shooterSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem));
     intakeButton.whileHeld(new ConditionalCommand(
       new WaitCommand(0), 
       new Intake(m_intakeSubsystem, m_feederSubsystem, m_ballTrackingSubsystem)

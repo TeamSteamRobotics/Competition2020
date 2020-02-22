@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.BallTrackingSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class Shoot extends CommandBase {
@@ -21,13 +22,15 @@ public class Shoot extends CommandBase {
   ShooterSubsystem shooter;
   HopperSubsystem hopper;
   BallTrackingSubsystem tracker;
+  IntakeSubsystem intake;
 
-  public Shoot(ShooterSubsystem shooter, HopperSubsystem hopper, BallTrackingSubsystem tracker) {
+  public Shoot(ShooterSubsystem shooter, HopperSubsystem hopper, BallTrackingSubsystem tracker, IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.hopper = hopper;
     this.shooter = shooter;
     this.tracker = tracker;
-    addRequirements(hopper);
+    this.intake = intake;
+    addRequirements(hopper, intake);
     
     
   }

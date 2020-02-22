@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpiutil.math.MathUtil;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * Add your docs here.
@@ -65,6 +66,8 @@ public class BootlegPID extends PIDController {
 
   private double m_setpoint;
 
+  private DriveSubsystem driveSubsystem;
+
   /**
    * Allocates a PIDController with the given constants for Kp, Ki, and Kd and a default period of
    * 0.02 seconds.
@@ -74,8 +77,8 @@ public class BootlegPID extends PIDController {
    * @param Kd The derivative coefficient.
    */
   @SuppressWarnings("ParameterName")
-  public BootlegPID(double Kp, double Ki, double Kd) {
-    this(Kp, Ki, Kd, 0.02);
+  public BootlegPID(double Kp, double Ki, double Kd, DriveSubsystem drive) {
+    this(Kp, Ki, Kd, 0.02, drive);
   }
 
   /**
@@ -87,7 +90,7 @@ public class BootlegPID extends PIDController {
    * @param period The period between controller updates in seconds.
    */
   @SuppressWarnings("ParameterName")
-  public BootlegPID(double Kp, double Ki, double Kd, double period) {
+  public BootlegPID(double Kp, double Ki, double Kd, double period, DriveSubsystem drive) {
     super(Kp, Ki, Kd, period);
     m_Kp = Kp;
     m_Ki = Ki;
@@ -96,6 +99,8 @@ public class BootlegPID extends PIDController {
     m_period = period;
 
     instances++;
+
+    driveSubsystem = drive;
   }
 
   @Override
@@ -311,15 +316,10 @@ public class BootlegPID extends PIDController {
    */
   @Override
   public double calculate(double measurement) {
-    m_prevError = m_positionError;
+    
     m_positionError = getContinuousError(m_setpoint - measurement);
-    m_velocityError = (m_positionError - m_prevError) / m_period;
-
-    if(m_velocityError == 0){
-        m_velocityError = prevDeriv;
-    }else{
-        prevDeriv = m_velocityError;
-    }
+    m_velocityError = (driveSubsystem.getAngle() - m_prevError) / m_period;
+    m_prevError = driveSubsystem.getAngle();
 
     if (m_Ki != 0) {
       m_totalError = MathUtil.clamp(m_totalError + m_positionError * m_period,
@@ -333,7 +333,7 @@ public class BootlegPID extends PIDController {
    * Resets the previous error and the integral term.
    */
   public void reset() {
-    m_prevError = 0;
+    m_prevError = driveSubsystem.getAngle();
     m_totalError = 0;
   }
 

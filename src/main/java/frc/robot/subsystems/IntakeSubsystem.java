@@ -21,7 +21,7 @@ public class IntakeSubsystem extends SubsystemBase {
   SpeedControllerGroup intakeMotors = new SpeedControllerGroup(lowerIntakeMotor, upperIntakeMotor);
 
   public void intake(){
-   intakeMotors.set(.4);
+   intakeMotors.set(.7);
   }
 
   public void deployIntake(){

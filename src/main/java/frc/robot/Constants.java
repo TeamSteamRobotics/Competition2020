@@ -37,8 +37,8 @@ public final class Constants {
 
         public static final class VisionTurnPID {
             public static final double kP = .55 / 69.0;//0.65;
-            public static final double kI = .5 / 20.0;//0.7;
-            public static final double kD = .3 / 690.0;//0.04;
+            public static final double kI = .25 / 20.0;//0.7;
+            public static final double kD = -1.0 / 690.0;//0.04;
 
             public static final double posTolerance = .01;
             public static final double velTolerance = .01;

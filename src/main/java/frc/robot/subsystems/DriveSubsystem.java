@@ -57,6 +57,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void drive(double speed, double rotation, boolean squareInputs) {
+    //diffDrive.arcadeDrive(speed, rotation, squareInputs);
     diffDrive.arcadeDrive(speed, rotation, squareInputs);
   }
 
@@ -80,7 +81,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void autoDrive(double forward, double turn){
     forward += Math.copySign(.05, forward);
-    //turn += Math.copySign(.05, turn);
+    turn += Math.copySign(.03, turn);
     drive(forward, turn, false);
   }
 
