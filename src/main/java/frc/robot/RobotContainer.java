@@ -128,11 +128,12 @@ public class RobotContainer {
         )),
       m_ballTrackingSubsystem::isHopperFull
     ));
-    spinUpButton.toggleWhenActive(new ManualShoot(m_shooterSubsystem));
+    spinUpButton.toggleWhenActive(new ManualShoot(m_shooterSubsystem, m_visionSubsystem));
     spinUpButton.toggleWhenActive(new StartEndCommand(
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 1), 
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 0)
     ));
+    moveToIntakeButton.whileHeld(()->m_intakeSubsystem.setSpeed(-.4), m_intakeSubsystem);
 
     //manual overrides
     //moveToIntakeButton.whileHeld(new MoveToIntake(m_feederSubsystem));

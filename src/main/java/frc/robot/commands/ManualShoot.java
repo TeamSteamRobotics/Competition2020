@@ -17,10 +17,10 @@ public class ManualShoot extends CommandBase {
    * Creates a new ManualShoot.
    */
   ShooterSubsystem shooter;
-  //VisionSubsystem vision;
-  public ManualShoot(ShooterSubsystem shooter/*, VisionSubsystem vision*/) {
+  VisionSubsystem vision;
+  public ManualShoot(ShooterSubsystem shooter, VisionSubsystem vision) {
     this.shooter = shooter;
-    //this.vision = vision;
+    this.vision = vision;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -33,7 +33,7 @@ public class ManualShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.movePID(ShooterConstants.trenchShotSpeed);//shooter.getTargetSpeed(vision.getTargetDistance()));
+    shooter.movePID(/*ShooterConstants.trenchShotSpeed);//*/shooter.getTargetSpeed(vision.getTargetDistance()));
   }
 
   // Called once the command ends or is interrupted.

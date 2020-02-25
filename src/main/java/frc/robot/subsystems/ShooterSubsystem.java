@@ -51,12 +51,17 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void populateDistanceTable(){
-    shooterSpeeds.put(7.5, -36000d);
+    /*shooterSpeeds.put(7.5, -36000d);
     shooterSpeeds.put(5.18, -32500d);
     shooterSpeeds.put(3.86, -31100d);
     shooterSpeeds.put(9.08, -39800d);
     shooterSpeeds.put(8.07, -38000d);
-    shooterSpeeds.put(7.37, -36500d);
+    shooterSpeeds.put(7.37, -36500d);*/
+    shooterSpeeds.put(3.69, -31200d);
+    shooterSpeeds.put(4.17, -31450d);
+    shooterSpeeds.put(4.98, -32500d);
+    shooterSpeeds.put(5.59, -33000d);
+    shooterSpeeds.put(6.00, -33400d);
 
   }
   public void shoot(){
