@@ -34,8 +34,8 @@ public class DriveDistance extends PIDCommand {
         0,
         // This uses the output
         output -> {
-          output = Math.min(0.8, output);
-          output = Math.max(-0.8, output);
+          output = Math.min(0.5, output);
+          output = Math.max(-0.5, output);
           double turnValue = (targetAngle - drivetrain.getAngle()) * EncDrivePID.turnkP;
           drivetrain.autoDrive(output, turnValue);
           //System.out.println(output);

@@ -38,7 +38,7 @@ public class VisionTurn extends PIDCommand {
           //System.out.println(getController());
         });
 
-    addRequirements(drive, vision);
+    addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(VisionTurnPID.posTolerance, VisionTurnPID.velTolerance);
@@ -49,12 +49,12 @@ public class VisionTurn extends PIDCommand {
   public void execute() {
     // TODO Auto-generated method stub
     if(true){//runExecute >= 3){
-      System.out.println(getController().getVelocityError());
-      //if (Math.abs(getController().getPositionError()) < 0.2) {
-      //  getController().setI(1);
-      //} else {
-      //  getController().setI(0);
-      //}
+      System.out.println(getController().getPositionError());
+      if (Math.abs(getController().getPositionError()) < 5) {
+        getController().setI(VisionTurnPID.kI);
+      } else {
+        getController().setI(0);
+      }
       super.execute();
       runExecute = 0;
     }

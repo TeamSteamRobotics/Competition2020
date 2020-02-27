@@ -20,6 +20,7 @@ import frc.robot.commands.MoveToIntake;
 import frc.robot.commands.MoveToShooter;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SpinIntake;
+import frc.robot.commands.SuckyAutonomous;
 import frc.robot.commands.VisionDrive;
 import frc.robot.commands.VisionLineUp;
 import frc.robot.commands.VisionTurn;
@@ -73,11 +74,11 @@ public class RobotContainer {
 
 
   Joystick stick = new Joystick(0);
+  XboxController xboxController = new XboxController(1);
 
-  JoystickButton aimButton = new JoystickButton(stick, 1);
+  JoystickButton aimButton = new JoystickButton(xboxController, 1);//stick, 1);
   JoystickButton testShoot = new JoystickButton(stick, 2);
 
-  XboxController xboxController = new XboxController(1);
 
   TriggerButton shootButton = new TriggerButton(xboxController, Hand.kRight);
   TriggerButton intakeButton = new TriggerButton(xboxController, Hand.kLeft);
@@ -100,7 +101,7 @@ public class RobotContainer {
     // Configure the button bindings
     m_driveSubsystem.loadMusic("RickRoll.chrp");
     configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, stick::getY, stick::getX));
+    m_driveSubsystem.setDefaultCommand(new Drive(m_driveSubsystem, /**/() -> xboxController.getY(Hand.kLeft), () -> xboxController.getX(Hand.kLeft)));//*/stick::getY, stick::getX));
     //m_shooterSubsystem.setDefaultCommand(new RunCommand(() -> m_shooterSubsystem.movePID(speed.getDouble(0)), m_shooterSubsystem));
     //m_feederSubsystem.setDefaultCommand(new RunCommand(() -> m_feederSubsystem.move(stick.getY()), m_feederSubsystem));
     //m_intakeSubsystem.setDefaultCommand(new RunCommand(() -> m_intakeSubsystem.setSpeed(-stick.getY()), m_intakeSubsystem));
@@ -133,12 +134,12 @@ public class RobotContainer {
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 1), 
       () -> xboxController.setRumble(RumbleType.kLeftRumble, 0)
     ));
-    moveToIntakeButton.whileHeld(()->m_intakeSubsystem.setSpeed(-.4), m_intakeSubsystem);
+    //moveToIntakeButton.whileHeld(()->m_intakeSubsystem.setSpeed(-.4), m_intakeSubsystem);
 
     //manual overrides
     //moveToIntakeButton.whileHeld(new MoveToIntake(m_feederSubsystem));
     //moveToShooterButton.whileHeld(new MoveToShooter(m_feederSubsystem));
-    //manualIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
+    manualIntakeButton.whileHeld(new SpinIntake(m_intakeSubsystem));
     //manualShootButton.whileHeld(new ManualShoot(m_shooterSubsystem));
 
     //aimButton.whileHeld(new VisionLineUp(m_visionSubsystem, m_driveSubsystem));
@@ -154,7 +155,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return new EpicAutonomous(m_driveSubsystem, null, null, null, null, null);
-    return new EpicAutonomous(m_driveSubsystem, null, null, null, null, null);
+    return new SuckyAutonomous(m_driveSubsystem, m_shooterSubsystem, m_feederSubsystem, m_visionSubsystem, m_ballTrackingSubsystem, m_intakeSubsystem);//EpicAutonomous(m_driveSubsystem, m_visionSubsystem, m_intakeSubsystem, m_feederSubsystem, m_ballTrackingSubsystem, m_shooterSubsystem);
     //return null;
   }
 }

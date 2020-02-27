@@ -318,8 +318,9 @@ public class BootlegPID extends PIDController {
   public double calculate(double measurement) {
     
     m_positionError = getContinuousError(m_setpoint - measurement);
-    m_velocityError = (driveSubsystem.getAngle() - m_prevError) / m_period;
-    m_prevError = driveSubsystem.getAngle();
+    double angle = driveSubsystem.getAngle();
+    m_velocityError = (angle - m_prevError) / m_period;
+    m_prevError = angle;
 
     if (m_Ki != 0) {
       m_totalError = MathUtil.clamp(m_totalError + m_positionError * m_period,

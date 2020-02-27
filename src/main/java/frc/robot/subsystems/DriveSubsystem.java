@@ -53,7 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
   @Override
   public void periodic() {
-    //System.out.println(getAngle());
+    //System.out.println(getDistance());
   }
 
   public void drive(double speed, double rotation, boolean squareInputs) {
@@ -61,6 +61,11 @@ public class DriveSubsystem extends SubsystemBase {
     diffDrive.arcadeDrive(speed, rotation, squareInputs);
   }
 
+  public void curveDrive(double speed, double curvature, boolean quickTurn){
+    diffDrive.curvatureDrive(speed, curvature, quickTurn);
+  }
+
+  
   public double getAngle(){
     return gyro.getAngle();
   }

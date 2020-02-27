@@ -27,18 +27,18 @@ public final class Constants {
         public static final double feetPerTick = 7.168135E-5;
 
         public static final class GyroTurnPID {
-            public static final double kP = 1.6 / 69.0;
-            public static final double kI = 1.0 / 75;
-            public static final double kD = 1.9 / 690;
+            public static final double kP = .9 / 69.0;
+            public static final double kI = .5 / 75;
+            public static final double kD = 2.0 / 690;
 
             public static final double posTolerance = 2;
             public static final double velTolerance = 2;
         }
 
         public static final class VisionTurnPID {
-            public static final double kP = .55 / 69.0;//0.65;
-            public static final double kI = .25 / 20.0;//0.7;
-            public static final double kD = -1.0 / 690.0;//0.04;
+            public static final double kP = 1.0 / 69.0;//0.65;
+            public static final double kI = 1.0 / 20.0;//0.7;
+            public static final double kD = -1.4 / 690.0;//0.04;
 
             public static final double posTolerance = .01;
             public static final double velTolerance = .01;

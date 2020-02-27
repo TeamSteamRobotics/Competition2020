@@ -41,9 +41,10 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMaster.selectProfileSlot(0, 0);
 
     shooterMaster.config_kP(0, .03);
-    shooterMaster.config_kI(0, 0);
+    shooterMaster.config_kI(0, 1E-5);
     shooterMaster.config_kD(0, 0);
     shooterMaster.config_kF(0, 0.01760006);
+    shooterMaster.config_IntegralZone(0, 1000);
 
     Shuffleboard.getTab("driverInfo").addBoolean("shooter at speed", this::isAtSpeed);
 
@@ -94,6 +95,11 @@ public class ShooterSubsystem extends SubsystemBase {
     //get the shooter speeds for the two distances closest to the one provided.
     Entry<Double, Double> p1 = shooterSpeeds.floorEntry(distance);
     Entry<Double, Double> p2 = shooterSpeeds.ceilingEntry(distance);
+    if(p1 == null){
+      return p2.getValue();
+    }else if(p2 == null){
+      return p1.getValue();
+    }
 
     //linearly interpolate the two points to get an approximate speed for the shooter.
     return (p2.getValue() - p1.getValue())/(p2.getKey() - p1.getKey())
